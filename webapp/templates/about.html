@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <title>Secret Shelf - Free Book Store HTML CSS Template</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'web/css/normalize.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'web/icomoon/icomoon.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'web/css/vendor.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'web/style.css'%}">
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#header" tabindex="0">
+
+    <!-- HEADER -->
+    <div id="header-wrap">
+        <div class="top-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="social-links">
+                            <ul>
+                                <li><a href="#"><i class="icon icon-facebook"></i></a></li>
+                                <li><a href="#"><i class="icon icon-twitter"></i></a></li>
+                                <li><a href="#"><i class="icon icon-youtube-play"></i></a></li>
+                                <li><a href="#"><i class="icon icon-behance-square"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="right-element">
+                            <a href="#" class="user-account for-buy"><i class="icon icon-user"></i><span>Account</span></a>
+                            <a href="#" class="cart for-buy"><i class="icon icon-clipboard"></i><span>Cart:(0 $)</span></a>
+                            <div class="action-menu">
+                                <div class="search-bar">
+                                    <a href="#" class="search-button search-toggle" data-selector="#header-wrap">
+                                        <i class="icon icon-search"></i>
+                                    </a>
+                                    <form role="search" method="get" class="search-box">
+                                        <input class="search-field text search-input" placeholder="Search" type="search">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <header id="header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="main-logo">
+                            <a href="{% static 'web/index.html'%}">
+                                <img src="{% static 'web/images/main-logo.png'%}" alt="logo">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+
+						<nav id="navbar">
+							<div class="main-menu stellarnav">
+								<ul class="menu-list">
+									<li class="menu-item active"><a href="{% url 'home'%}">Home</a></li>
+									<li class="menu-item has-sub">
+										<a href="{% static 'web/#pages'%}" class="nav-link">book's</a>
+										<ul class="sub-menu">
+                                      {% for c in category %}
+                                    <li><a href="{% url 'filterd_books' cate_name=c.catename %}">{{ c.catename }}</a></li>
+                                                 {% endfor %}
+                                                  </ul>
+                                                </li>
+
+<!--										<ul>-->
+<!--											<li class="active"><a href="{% static 'web/index.html'%}">categories</a></li>-->
+<!--											<li><a href="{% static 'web/index.html'%}">About</a></li>-->
+<!--											<li><a href="{% static 'web/index.html'%}">Styles</a></li>-->
+<!--											<li><a href="{% static 'web/index.html'%}">Blog</a></li>-->
+<!--											<li><a href="{% static 'web/index.html'%}">Post Single</a></li>-->
+<!--											<li><a href="{% static 'web/index.html'%}">Our Store</a></li>-->
+<!--											<li><a href="{% static 'web/index.html'%}">Product Single</a></li>-->
+<!--											<li><a href="{% static 'web/index.html'%}">Contact</a></li>-->
+<!--											<li><a href="{% static 'web/index.html'%}">Thank You</a></li>-->
+<!--										</ul>-->
+
+									</li>
+									<li class="menu-item"><a href="{% url 'blog' %}" class="nav-link">Blog</a></li>
+									<li class="menu-item"><a href="{% url 'about_page' %}" class="nav-link">About</a></li>
+									<li class="menu-item"><a href="{% url 'contact_page'  %}" class="nav-link">Contact</a></li>
+
+
+									{% if request.session.name %}
+	                               <li class="menu-item"><a href="{% url 'user_logout' %}" class="nav-link">welcome {{request.session.name}}/logout</a></li>
+                                  {% else %}
+	                             <li class="menu-item"><a href="{% url 'user_sign_in' %}" class="nav-link">Click here to Register/Login</a></li>
+                                   {% endif %}
+                                 {% if request.session.name %}
+    <li class="menu-item">
+        <a href="{% url 'cart_page' %}">
+<!--            <i class="icon icon-clipboard"></i>-->
+            <span>Cart: [{{ cart_total }}]</span>
+        </a>
+    </li>
+{% endif %}
+								</ul>
+
+								<div class="hamburger">
+									<span class="bar"></span>
+									<span class="bar"></span>
+									<span class="bar"></span>
+								</div>
+
+							</div>
+						</nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <!-- ABOUT SECTION -->
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <!-- Image -->
+            <div class="col-md-6 mb-4 mb-md-0">
+                <div class="p-3 bg-white rounded shadow-lg">
+                    <img src="{% static 'web/images/new.jpg' %}"
+                         alt="About Bookstore"
+                         class="img-fluid rounded shadow-sm border"
+                         style="transition: transform 0.4s ease;">
+                </div>
+            </div>
+
+            <!-- Text -->
+            <div class="col-md-6">
+                <h2 class="mb-3 fw-bold" style="color: #2c3e50;">About Our Bookstore</h2>
+                <p class="lead text-muted">
+                    Welcome to <strong>BookStore</strong>, your go-to destination for stories that inspire, inform, and ignite the imagination.
+                </p>
+                <p>
+                    Our journey began with a love for reading and a vision to connect readers with meaningful stories. From timeless classics to the latest bestsellers, our shelves are curated with love.
+                </p>
+                <h5 class="mt-4 fw-semibold" style="color: #34495e;">Why Choose Us?</h5>
+                <ul class="list-unstyled mt-3">
+                    <li>📚 Vast selection of books at great prices</li>
+                    <li>🚚 Secure and fast delivery</li>
+                    <li>🛒 Easy-to-use cart and checkout system</li>
+                    <li>💬 Friendly and helpful support team</li>
+                </ul>
+                <p class="mt-3">Thank you for being part of our story.</p>
+                <a href="" class="btn btn-primary btn-lg mt-3 rounded-pill shadow-sm">
+                    Browse Our Collection
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hover effect -->
+    <style>
+        .container img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <!-- Footer content -->
+                <div class="col-md-4">
+                    <div class="footer-item">
+                        <div class="company-brand">
+                            <img src="{% static 'web/images/main-logo.png'%}" alt="logo" class="footer-logo">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed ptibus liberolectus nonet psryroin. Amet sed lorem posuere sit iaculis amet, ac urna. Adipiscing fames semper erat ac in suspendisse iaculis.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="footer-menu">
+                        <h5>About Us</h5>
+                        <ul class="menu-list">
+                            <li class="menu-item"><a href="#">Vision</a></li>
+                            <li class="menu-item"><a href="#">Articles</a></li>
+                            <li class="menu-item"><a href="#">Careers</a></li>
+                            <li class="menu-item"><a href="#">Service Terms</a></li>
+                            <li class="menu-item"><a href="#">Donate</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="footer-menu">
+                        <h5>Help</h5>
+                        <ul class="menu-list">
+                            <li class="menu-item"><a href="#">Help Center</a></li>
+                            <li class="menu-item"><a href="#">Report a Problem</a></li>
+                            <li class="menu-item"><a href="#">Suggesting Edits</a></li>
+                            <li class="menu-item"><a href="#">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FOOTER BOTTOM -->
+    <div id="footer-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>© 2022 All rights reserved. Free HTML Template by <a href="https://www.templatesjungle.com/" target="_blank">TemplatesJungle</a></p>
+                </div>
+                <div class="col-md-6">
+                    <div class="social-links align-right">
+                        <ul>
+                            <li><a href="#"><i class="icon icon-facebook"></i></a></li>
+                            <li><a href="#"><i class="icon icon-twitter"></i></a></li>
+                            <li><a href="#"><i class="icon icon-youtube-play"></i></a></li>
+                            <li><a href="#"><i class="icon icon-behance-square"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{% static 'web/js/jquery-1.11.0.min.js'%}"></script>
+    <script src="{% static 'web/js/plugins.js'%}"></script>
+    <script src="{% static 'web/js/script.js'%}"></script>
+
+</body>
+</html>

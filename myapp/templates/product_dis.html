@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% extends 'dashboard.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card-body">
+                    <h4 class="card-title">Basic Table</h4>
+                    <p class="card-description"> Add class <code>.table</code>
+                    </p>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>select category</th>
+                          <th>product name</th>
+                          <th>product image</th>
+                          <th>price</th>
+                          <th>description</th>
+
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                      {% for i in product %}
+                       <tr>
+
+                           <td> {{ i.select_pro }}</td>
+                           <td>{{i.proname}}</td>
+                           <td><img src="{{i.proimg.url}}"></td>
+                           <td>{{i.cost}}</td>
+                           <td>{{i.pdesc}}</td>
+                           <td><a href="{%url 'product_delete' pi=i.id %}"><button type="button" class="btn btn-primary">delete</button> </a></td>
+                           <td><a href="{%url 'pro_edit' pi=i.id %}"><button type="button" class="btn btn-primary">edit</button> </a></td>
+
+
+
+                       </tr>
+                      {% endfor %}
+
+                      </tbody>
+
+                    </table>
+                  </div>
+</body>
+</html>
+{% endblock %}

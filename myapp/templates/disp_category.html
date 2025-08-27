@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% extends 'dashboard.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<div class="card-body">
+                    <h4 class="card-title">Hoverable Table</h4>
+                    <p class="card-description"> Add class <code>.table-hover</code>
+                    </p>
+                    <table class="table-responsive">
+                      <thead>
+                        <tr>
+                          <th>category name</th>
+                          <th>category image</th>
+                          <th>description</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                         {% for i in category %}
+                      <tr>
+                          <td>{{i.catename}}</td>
+                          <td> <img src="{{ i.cimage.url}}" width="70px"></td>
+                          <td>{{i.description}}</td>
+                          <td><a href="{% url 'cate_delete'  ci=i.id %}"><button type="button" class="btn btn-primary">delete</button></a></td>
+                          <td><a href="{% url 'cate_edit'  ci=i.id %}"><button type="button" class="btn btn-primary">edit</button></a></td>
+                      </tr>
+                      {% endfor %}
+
+                      </tbody>
+                    </table>
+                  </div>
+{% endblock %}
