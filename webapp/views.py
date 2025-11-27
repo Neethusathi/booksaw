@@ -31,8 +31,13 @@ def single_book(request,book_id):
 
     return render(request,"single_book.html",{'product':product,'cart_total':cart_total,'category':category})
 def filterd_books(request,cate_name):
+    category = categoryDB.objects.all()
+    cart_total = 0
+    name = request.session.get('name')
+    if name:
+        cart_total = cartDB.objects.filter(username=name).count()
     products=productDB.objects.filter(select_pro=cate_name) # filter(id=proid)
-    return render(request,"filterd_books.html",{'products':products})
+    return render(request,"filterd_books.html",{'products':products,'category':category,'cart_total':cart_total})
 def books_page(request):
     category = categoryDB.objects.all()
     cart_total = 0
@@ -43,12 +48,17 @@ def books_page(request):
     return render(request,"book.html",{'product':product,'cart_total':cart_total,'category':category})
 def about_page(request):
     category = categoryDB.objects.all()
+    cart_total = 0
+    name = request.session.get('name')
+    if name:
+        cart_total = cartDB.objects.filter(username=name).count()
+    category = categoryDB.objects.all()
 
     cart_total = 0
     name = request.session.get('name')
     if name:
         cart_total = cartDB.objects.filter(username=name).count()
-    return render(request,"about.html",{'cart_total':cart_total,'category':category})
+    return render(request,"about.html",{'cart_total':cart_total,'category':category,})
 def contact_page(request):
     category = categoryDB.objects.all()
 
